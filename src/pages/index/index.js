@@ -8,6 +8,8 @@ import {
   InfiniteScroll
 } from 'mint-ui';
 
+import Foot from 'components/Foot.vue'
+
 Vue.use(InfiniteScroll);
 
 
@@ -27,6 +29,7 @@ let app = new Vue({
             if(this.allLoaded) {
                 return 
             }
+            
             this.loading = true
             axios.post(url.hotLists, {
               pageNum: this.pageNum,
@@ -38,7 +41,6 @@ let app = new Vue({
                     this.allLoaded = true
                 }
                 if(this.lists) {
-                    console.log('1111')
                     this.lists = this.lists.concat(curLists)
                 } else {
                     this.lists = res.data.lists                    
@@ -47,6 +49,9 @@ let app = new Vue({
                 this.loading = false
             })
         }
+    },
+    components: {
+        Foot
     }
 })
 
