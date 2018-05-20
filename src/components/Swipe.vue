@@ -1,23 +1,49 @@
 <template>
-  <div class="swiper-container">
-    <div class="swiper-wrapper">
-      <div class="swp-page">
-        <a class="js-no-follow" href="https://h5.koudaitong.com/v2/index/rukou">
-          <img class="goods-main-photo fadeIn" src="https://img.yzcdn.cn/upload_files/2016/07/29/Fl3T06Mu7TpIhR4L1s2tzm8cZrgt.jpg">
-        </a>
-      </div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swp-page swiper-slide" v-for="list in lists" :key="list.id">
+                <a class="js-no-follow" v-bind:href="list.clickUrl">
+                    <img class="goods-main-photo fadeIn" :src="list.img" alt="">
+                </a>
+            </div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
     </div>
-  </div>
+      
 </template>
 
+
 <script>
-  export default {
+import Swiper from 'swiper'
+import 'swiper/dist/css/swiper.css'
 
-  }
-
+export default {
+    name: 'swipe',
+    props: {
+        lists: {
+            type: Array,
+            required: true
+        },
+        name: ''
+    },
+    mounted() {
+        new Swiper('.swiper-container', {
+            loop: true,
+            effect: 'coverflow',
+            autoplay: true,
+            pagination: {
+                el: '.swiper-pagination'
+            }
+        })
+    }
+}
 </script>
 
+
 <style>
-
-
+    .swiper-slide img {
+        width: 100%;
+        height: 100%;
+    }
 </style>
