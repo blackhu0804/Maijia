@@ -1,7 +1,9 @@
 let url = {
     hotLists :'/index/hotLists',
     banner: '/index/banner',
-    topList: '/category/topList'
+    topList: '/category/topList',
+    rankList: '/category/rank',
+    subList: '/category/subList'
 }
 
 //  开发环境和真是环境的切换

@@ -6,15 +6,19 @@ import axios from 'axios'
 import url from 'js/api.js'
 
 import Foot from 'components/Foot.vue'
-
+Vue.prototype.$http = axios
 new Vue({
     el: '#app',
     data: {
         topList: null,
-        topIndex: 0
+        topIndex: 0,
+        subData: null,
+        rankData: null
     },
     created() {
         this.getTopList()
+        this.getSubList(0)
+        this.getRankList()
     },
     methods: {
         getTopList() {
@@ -24,8 +28,20 @@ new Vue({
 
             })
         },
-        getSubList(id, index) {
+        getSubList( index, id) {
             this.topIndex = index
+            if(index === 0) {
+                this.getRankList()
+            } else {
+                axios.post(url.subList, { id }).then(res => {
+                    this.subData = res.data.data
+                })
+            }
+        },
+        getRankList() {
+            axios.post(url.rankList).then(res => {
+                this.rankData = res.data.data
+            })
         }
     },
     components: {

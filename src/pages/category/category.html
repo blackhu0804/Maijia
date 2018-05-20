@@ -59,7 +59,7 @@
                 :class="{active:index==topIndex}" 
                 :data-cid="list.id" 
                 v-for="(list, index) in topList"
-                @click="getSubList(list.id, index)"
+                @click="getSubList( index, list.id )"
               > 
                 {{list.name}}
               </li>
@@ -79,50 +79,18 @@
                     <a href="https://maijia.youzan.com/mars/rank/hotgoods" class="pull-right icon-right">更多</a>
                   </div>
                   <ul>
-                    <li class="goods-item">
+                    <li class="goods-item" v-for="(list, index) in rankData.hotGoods">
                       <a href="https://h5.youzan.com/v2/showcase/goods?alias=27cjv5wdsb4to&amp;source=yzapp&amp;f_platform=yzapp">
                         <div class="thumb badge center-img">
-                          <img src="https://img.yzcdn.cn/upload_files/2017/02/01/Fm3TX1YgkaJsSzZNfP8pYqV4w30_.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
-                          <span class="num">1</span>
+                          <img :src="list.img">
+                          <span class="num">{{index + 1}}</span>
                         </div>
                         <div class="detail">
-                          <div class="title">Nature自然系列 | 混合版，花点时间热卖中，139元/4束，新用户赠花瓶。每周一束混合花束，品种随机。</div>
-                          <div class="price">￥139.00</div>
+                          <div class="title">{{ list.name}}</div>
+                          <div class="price">￥{{list.price}}</div>
                           <div class="recommend">
                             <span>推荐值:</span>
-                            <span>45371</span>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li class="goods-item">
-                      <a href="https://h5.youzan.com/v2/showcase/goods?alias=1y3yyc3dntxpb&amp;source=yzapp&amp;f_platform=yzapp">
-                        <div class="thumb badge center-img">
-                          <img src="https://img.yzcdn.cn/upload_files/2017/07/07/FrReTkX7by5UykdANunTgLO6A96I.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
-                          <span class="num">2</span>
-                        </div>
-                        <div class="detail">
-                          <div class="title">范冰冰同款，一款越晒越白的防晒帽！</div>
-                          <div class="price">￥138.00</div>
-                          <div class="recommend">
-                            <span>推荐值:</span>
-                            <span>1203</span>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li class="goods-item">
-                      <a href="https://h5.youzan.com/v2/showcase/goods?alias=yzlvlgx&amp;source=yzapp&amp;f_platform=yzapp">
-                        <div class="thumb badge center-img">
-                          <img src="https://img.yzcdn.cn/upload_files/2017/01/24/Fu02cf12xKmGOVLNmBvl18UWRoVj.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
-                          <span class="num">3</span>
-                        </div>
-                        <div class="detail">
-                          <div class="title">【周黑鸭_锁鲜】气调盒装卤鸭锁骨240g</div>
-                          <div class="price">￥23.90</div>
-                          <div class="recommend">
-                            <span>推荐值:</span>
-                            <span>1192</span>
+                            <span>{{list.recommend}}</span>
                           </div>
                         </div>
                       </a>
@@ -135,74 +103,16 @@
                     <a href="https://maijia.youzan.com/mars/rank/hotshops" class="pull-right icon-right">更多</a>
                   </div>
                   <ul>
-                    <li class="shop-item">
+                    <li class="shop-item" v-for="(list, index) in rankData.hotShops">
                       <div class="shop-title">
-                        <span class="badge">1</span>
-                        <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=10695955&amp;source=yzapp">幸福西饼</a>
-                        <span class="follows"> / 关注度: 987750</span>
+                        <span class="badge">{{index + 1}}</span>
+                        <a :href="list.clickUrl">{{list.name}}</a>
+                        <span class="follows"> / 关注度: {{list.follows}}</span>
                       </div>
                       <ul class="shop-images">
-                        <li>
+                        <li v-for="item in rankData.hotShops[index].imgs">
                           <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=10695955&amp;source=yzapp">
-                            <img src="https://img.yzcdn.cn/upload_files/2017/06/26/FqTetLh1hFFZtENlwzSaaPl6ocdE.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=10695955&amp;source=yzapp">
-                            <img src="https://img.yzcdn.cn/upload_files/2017/07/04/FgPgazbSqNvd98F_Jc-VzYao0IoL.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=10695955&amp;source=yzapp">
-                            <img src="https://img.yzcdn.cn/upload_files/2017/05/01/FrbBOU-K2NoS1iGH3glkO7rLGPIP.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="shop-item">
-                      <div class="shop-title">
-                        <span class="badge">2</span>
-                        <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=16600128&amp;source=yzapp">HomeFacial Pro　</a>
-                        <span class="follows"> / 关注度: 584180</span>
-                      </div>
-                      <ul class="shop-images">
-                        <li>
-                          <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=16600128&amp;source=yzapp">
-                            <img src="https://img.yzcdn.cn/upload_files/2016/12/15/FuHOoVCAuhIJqOZqQ3ecfdpP6YEj.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=16600128&amp;source=yzapp">
-                            <img src="https://img.yzcdn.cn/upload_files/2017/05/16/FntTkRaYc1uvCu7ir-2SfY6uihP3.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=16600128&amp;source=yzapp">
-                            <img src="https://img.yzcdn.cn/upload_files/2017/01/11/Fk2RKtEINwYiugDzvsh1_V61d7xK.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="shop-item">
-                      <div class="shop-title">
-                        <span class="badge">3</span>
-                        <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=16395015&amp;source=yzapp">物业365</a>
-                        <span class="follows"> / 关注度: 574948</span>
-                      </div>
-                      <ul class="shop-images">
-                        <li>
-                          <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=16395015&amp;source=yzapp">
-                            <img src="https://img.yzcdn.cn/upload_files/2017/02/05/FozkeVdsEZZvav_wBnCjO5azQbdy.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=16395015&amp;source=yzapp">
-                            <img src="https://img.yzcdn.cn/upload_files/2017/03/04/Fqa6U6f_aVYdO23f7FLgZXYvqihl.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
-                          </a>
-                        </li>
-                        <li>
-                          <a href="https://h5.youzan.com/v2/showcase/homepage?kdt_id=16395015&amp;source=yzapp">
-                            <img src="https://img.yzcdn.cn/upload_files/2017/02/05/FozkeVdsEZZvav_wBnCjO5azQbdy.jpg?imageView2/2/w/180/h/0/q/75/format/jpg">
+                            <img :src="item">
                           </a>
                         </li>
                       </ul>
@@ -214,32 +124,8 @@
                     <p class="pull-left">热搜词排行</p>
                   </div>
                   <ul class="keywords-list">
-                    <li>
-                      <a href="javascript:;" class="js-hot-keyword">化妆水</a>
-                    </li>
-                    <li>
-                      <a href="javascript:;" class="js-hot-keyword">凉鞋女</a>
-                    </li>
-                    <li>
-                      <a href="javascript:;" class="js-hot-keyword">连衣裙</a>
-                    </li>
-                    <li>
-                      <a href="javascript:;" class="js-hot-keyword">面膜</a>
-                    </li>
-                    <li>
-                      <a href="javascript:;" class="js-hot-keyword">防晒</a>
-                    </li>
-                    <li>
-                      <a href="javascript:;" class="js-hot-keyword">蓝牙音箱</a>
-                    </li>
-                    <li>
-                      <a href="javascript:;" class="js-hot-keyword">小白鞋</a>
-                    </li>
-                    <li>
-                      <a href="javascript:;" class="js-hot-keyword">裤子</a>
-                    </li>
-                    <li>
-                      <a href="javascript:;" class="js-hot-keyword">衬衫</a>
+                    <li v-for="list in rankData.hotKeywords">
+                      <a href="javascript:;" class="js-hot-keyword">{{list}}</a>
                     </li>
                   </ul>
                 </div>
