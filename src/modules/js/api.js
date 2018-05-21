@@ -3,7 +3,9 @@ let url = {
     banner: '/index/banner',
     topList: '/category/topList',
     rankList: '/category/rank',
-    subList: '/category/subList'
+    subList: '/category/subList',
+    searchList :'/search/list'
+
 }
 
 //  开发环境和真是环境的切换
