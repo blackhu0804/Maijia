@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="./css/category.css"> -->
 </head>
 
-<body class=" " style="">
+<body class=" ">
   <div id="app">
     <div class="container with-bottom-nav" style="min-height: 667px; height: 667px;">
       <div class="custom-search js-search-bar">
@@ -139,7 +139,8 @@
               <ul class="category-content">
                
                 <li class="category-item js-category-item" data-item-id="list.id" :data-item-name="list.name"
-                  v-for="list in subData.brandList">
+                  v-for="list in subData.brandList"
+                  @click="toSearch(list)">
                   <img :src="list.img" :alt="list.name" class="category-img">
                   <span class="category-item-name">
                     {{list.name}} </span>
@@ -150,7 +151,8 @@
               <ul class="category-content">
 
                 <li class="category-item js-category-item" :data-item-id="list.id" :data-item-name="list.name"
-                  v-for="list in subData.categoryList">
+                  v-for="list in subData.categoryList"
+                  @click="toSearch(list)">
                   <img :src="list.img"
                     :alt="list.name" class="category-img">
                   <span class="category-item-name">

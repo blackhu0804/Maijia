@@ -42,6 +42,9 @@ new Vue({
             axios.post(url.rankList).then(res => {
                 this.rankData = res.data.data
             })
+        },
+        toSearch(list) {
+            location.href = `search.html?keyword=${list.name}&id=${list.id}`
         }
     },
     components: {
