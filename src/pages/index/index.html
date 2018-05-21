@@ -71,7 +71,7 @@
           >
             <li v-for="list in lists" :key="list.id">
               <div class="goods-item">
-                <a href="https://h5.youzan.com/v2/showcase/goods?alias=2fwig6rnqfq6m&amp;source=yzapp&amp;f_platform=yzapp">
+                <a :href="'goods.html?id='+list.id">
                   <div class="thumb img-box">
                     <img class="fadeIn" :src="list.img">
                   </div>
@@ -88,11 +88,7 @@
         <div class="js-show-find category-guid" style="display: none;"></div>
       </div>
     </div>
-<<<<<<< HEAD
-    <foot></foot>
-=======
     <Foot></Foot>
->>>>>>> 265d0ac14e06e8a4aaa0fafc0370ba2576c569b9
   </div>
 </body>
 
