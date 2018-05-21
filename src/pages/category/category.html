@@ -140,7 +140,7 @@
                
                 <li class="category-item js-category-item" data-item-id="list.id" :data-item-name="list.name"
                   v-for="list in subData.brandList">
-                  <img :src="list.img" alt="{{list.name}}" class="category-img">
+                  <img :src="list.img" :alt="list.name" class="category-img">
                   <span class="category-item-name">
                     {{list.name}} </span>
                 </li>
@@ -152,7 +152,7 @@
                 <li class="category-item js-category-item" :data-item-id="list.id" :data-item-name="list.name"
                   v-for="list in subData.categoryList">
                   <img :src="list.img"
-                    alt="{{list.name}}" class="category-img">
+                    :alt="list.name" class="category-img">
                   <span class="category-item-name">
                      {{list.name}} </span>
                 </li>

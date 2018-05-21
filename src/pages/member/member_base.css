@@ -479,7 +479,7 @@ only screen and (min-device-pixel-ratio: 1.5) {
   color: #333
 }
 
-.copyright .ft-links~.ft-copyright {
+.copyright .ft-links ~ .ft-copyright {
   -webkit-border-image: url("/v2/image/wap/border-line.png") 2 stretch;
   -moz-border-image: url("/v2/image/wap/border-line.png") 2 stretch;
   border-image: url("/v2/image/wap/border-line.png") 2 stretch;
@@ -489,7 +489,7 @@ only screen and (min-device-pixel-ratio: 1.5) {
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
 only screen and (min--moz-device-pixel-ratio: 1.5),
 only screen and (min-device-pixel-ratio: 1.5) {
-  .copyright .ft-links~.ft-copyright {
+  .copyright .ft-links ~ .ft-copyright {
     border-top-width: 1px
   }
 }
