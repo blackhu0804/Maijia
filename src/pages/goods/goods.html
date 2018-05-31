@@ -19,74 +19,49 @@
   <link rel="stylesheet" href="./css/goods_theme.css">
   <link rel="stylesheet" href="./css/goods_mars.css">
   <link rel="stylesheet" href="./css/goods_sku.css"> -->
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
 </head>
 
 <body class=" body-fixed-bottom default-theme">
-  <div id="app">
+  <div id="app" v-if="details" v-cloak>
     <div class="container wap-goods internal-purchase" style="min-height: 617px;">
       <div class="content no-sidebar">
         <div class="content-body">
-          <div class="custom-image-swiper custom-goods-swiper js-swp swp">
-            <div class="swiper-wrapper js-swp-wrap" style="height: 375px;" data-height="320">
-              <div class="swp-page" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; display: block; transform: translate3d(-9999px, 0px, 0px);">
-                <img class="" src="https://img.yzcdn.cn/upload_files/2017/07/12/FkSvYz8FLLD9-t0smXO43hF6ov7S.jpg?imageView2/2/w/980/h/980/q/75/format/webp">
-              </div>
-              <div class="swp-page" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; display: block; transform: translate3d(-375px, 0px, 0px);">
-                <img class="js-res-load" data-src="https://img.yzcdn.cn/upload_files/2017/07/12/FvBRA_j6wl7CBVuNHQPl7FHkj0b1.jpg?imageView2/2/w/980/h/980/q/75/format/webp"
-                  src="https://img.yzcdn.cn/upload_files/2017/07/12/FvBRA_j6wl7CBVuNHQPl7FHkj0b1.jpg?imageView2/2/w/980/h/980/q/75/format/webp">
-              </div>
-              <div class="swp-page page-in-view" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; display: block; transform: translate3d(0px, 0px, 0px);">
-                <img class="js-res-load" data-src="https://img.yzcdn.cn/upload_files/2017/07/12/FpetvOfbRCRmyeg32DBunok9Uvmo.jpg?imageView2/2/w/980/h/980/q/75/format/webp"
-                  src="https://img.yzcdn.cn/upload_files/2017/07/12/FpetvOfbRCRmyeg32DBunok9Uvmo.jpg?imageView2/2/w/980/h/980/q/75/format/webp">
-              </div>
-              <div class="swp-page" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; display: block; transform: translate3d(375px, 0px, 0px);">
-                <img class="js-res-load" data-src="https://img.yzcdn.cn/upload_files/2017/07/12/FqYpph8-5qfY-sCecemc7LTZb2O2.jpg?imageView2/2/w/980/h/980/q/75/format/webp"
-                  src="https://img.yzcdn.cn/upload_files/2017/07/12/FqYpph8-5qfY-sCecemc7LTZb2O2.jpg?imageView2/2/w/980/h/980/q/75/format/webp">
-              </div>
-              <div class="swp-page" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; display: block; transform: translate3d(-9999px, 0px, 0px);">
-                <img class="js-res-load" data-src="https://img.yzcdn.cn/upload_files/2017/07/12/FmgpyGwZqitXF7LWnVzmHHmCVfB4.jpg?imageView2/2/w/980/h/980/q/75/format/webp"
-                  src="https://img.yzcdn.cn/upload_files/2017/07/12/FmgpyGwZqitXF7LWnVzmHHmCVfB4.jpg?imageView2/2/w/980/h/980/q/75/format/webp">
-              </div>
-            </div>
-            <div class="swiper-pagination js-swiper-pagination">
-              <ul class="swp-thumbnail-list">
-                <li class="swiper-pagination-switch"></li>
-                <li class="swiper-pagination-switch"></li>
-                <li class="swiper-pagination-switch swiper-active-switch"></li>
-                <li class="swiper-pagination-switch"></li>
-                <li class="swiper-pagination-switch"></li>
-              </ul>
-            </div>
-          </div>
-          <script id="resize-img-script-used"></script>
+          
+          <swipe :lists="bannerList" v-if="bannerList" name="swipe.vue"></swipe>
+          
           <div class="goods-header">
-            <h2 class="title">寻找田野|最正宗的上海南汇8424 得奖最多奥运会指定西瓜1只/箱 9-11斤</h2>
+            <h2 class="title">{{details.title}}</h2>
             <span class="hide js-add-wish js-wish-animate wish-add  font-size-12 tag tag-redf30 pull-right">
               喜欢
             </span>
             <div class="goods-price ">
               <div class="current-price">
                 <span>¥</span>
-                <i class="js-goods-price price">98.00</i>
+                <i class="js-goods-price price">{{details.price | money}}</i>
               </div>
               <span class="btn btn-blue btn-retail hide js-retail-btn">门店有售</span>
               <div class="original-price">
-                108 </div>
+                {{details.originalPrice | money}} </div>
             </div>
             <hr class="with-margin-l">
             <div class="stock-detail">
               <dl>
                 <dt>运费:</dt>
                 <dd class="js-postage-desc" data-postage="免运费">
-                  免运费 </dd>
+                  {{details.postage}} </dd>
               </dl>
               <dl>
                 <dt>剩余:</dt>
-                <dd>450</dd>
+                <dd>{{details.remain}}</dd>
               </dl>
               <dl>
                 <dt>销量:</dt>
-                <dd>50</dd>
+                <dd>{{details.sales}}</dd>
               </dl>
             </div>
           </div>
@@ -107,7 +82,7 @@
                 <a class="custom-store-link clearfix" href="https://h5.youzan.com/v2/home/cz0mk59k">
                   <div class="custom-store-img"></div>
                   <div class="custom-store-name">
-                    寻找田野 </div>
+                    {{details.storeName}} </div>
                   <span class="custom-store-enter">进入店铺</span>
                 </a>
               </div>
@@ -117,11 +92,8 @@
                 <div class="offline-store-branch js-retail-store-name"></div>
               </a>
               <div class="renzheng block-item">
-                <span class="js-rz-item-alert rz-item" data-type="team_certificate_company">
-                  <span class="rz-name font-size-12 c-gray-darker">企业认证</span>
-                </span>
-                <span class="js-rz-item-alert rz-item" data-type="is_secured_transactions">
-                  <span class="rz-name font-size-12 c-gray-darker">担保交易</span>
+                <span class="js-rz-item-alert rz-item" v-for="item in details.identification">
+                  <span class="rz-name font-size-12 c-gray-darker">{{item}}</span>
                 </span>
               </div>
             </div>
@@ -130,13 +102,15 @@
           <div class="js-detail-container" style="margin-top: 10px;">
             <div class="js-tabber-container goods-detail">
               <div class="js-tabber tabber tabber-n2 clearfix orange">
-                <button data-type="goods" class="active">
-                  商品详情 </button>
-                <button data-type="sales">
-                  本店成交 </button>
+                <button v-for="(item, index) in detailTab"
+                  :class="{active:index === tabIndex}"
+                  @click="changeTab(index)"
+                >{{item}}</button>
               </div>
               <div class="js-tabber-content">
-                <div class="js-part hide" data-type="sales">
+                
+                <!-- 本店成交 -->
+                <div v-show="tabIndex === 1" class="js-part" data-type="sales">
                   <div class="js-traderecord-list block-list-traderecord">
                     <div class="list-header">
                       <span class="col-1">买家</span>
@@ -144,42 +118,20 @@
                       <span class="col-3 center">数量</span>
                     </div>
                     <div class="js-list b-list block block-list">
+                      <li class="block-item" v-for="list in dealLists">
+                        <span class="col-1 c-gray-darker">{{list.buyer}}</span>
+                        <span class="col-2 c-gray-dark center">{{list.time}}</span>
+                        <span class="col-3 c-gray-darker center">{{list.num}}</span>
+                      </li>
                     </div>
                   </div>
                 </div>
-                <div class="js-part js-goods-detail goods-tabber-c" data-type="goods">
-                  <div class="js-components-container components-container">
-                    <div class="custom-richtext js-lazy-container js-view-image-list">
-                      <p>
-                        <img data-origin-width="720" data-origin-height="713" class="js-richtext-img-lazy js-view-image-item" src="https://img.yzcdn.cn/upload_files/2017/05/15/FhU7lMPonHtR8qP4zP4aIKRVkObr.jpg?imageView2/2/w/730/h/0/q/75/format/webp"
-                          data-src="https://img.yzcdn.cn/upload_files/2017/05/15/FhU7lMPonHtR8qP4zP4aIKRVkObr.jpg!730x0.jpg">
-                        <img data-origin-width="720" data-origin-height="494" class="js-richtext-img-lazy js-view-image-item" src="https://img.yzcdn.cn/upload_files/2017/05/15/FvYqk840X0ubXwFE6Nh0unihqIKm.jpg?imageView2/2/w/730/h/0/q/75/format/webp"
-                          data-src="https://img.yzcdn.cn/upload_files/2017/05/15/FvYqk840X0ubXwFE6Nh0unihqIKm.jpg!730x0.jpg">
-                        <img data-origin-width="720" data-origin-height="916" class="js-richtext-img-lazy js-view-image-item" src="https://img.yzcdn.cn/upload_files/2017/05/15/FvIfNYewmohf3b3V2yA_hr6whV-A.jpg?imageView2/2/w/730/h/0/q/75/format/webp"
-                          data-src="https://img.yzcdn.cn/upload_files/2017/05/15/FvIfNYewmohf3b3V2yA_hr6whV-A.jpg!730x0.jpg">
-                        <img data-origin-width="720" data-origin-height="656" class="js-richtext-img-lazy js-view-image-item" src="https://img.yzcdn.cn/upload_files/2017/05/15/FlYJPxbAgmkKjWtvLxwqjUMJHUG3.jpg?imageView2/2/w/730/h/0/q/75/format/webp"
-                          data-src="https://img.yzcdn.cn/upload_files/2017/05/15/FlYJPxbAgmkKjWtvLxwqjUMJHUG3.jpg!730x0.jpg">
-                        <img data-origin-width="720" data-origin-height="513" class="js-richtext-img-lazy js-view-image-item" src="https://img.yzcdn.cn/upload_files/2017/05/15/FmpaiyW8GbpV2I2QKwm7stoRQkOJ.jpg?imageView2/2/w/730/h/0/q/75/format/webp"
-                          data-src="https://img.yzcdn.cn/upload_files/2017/05/15/FmpaiyW8GbpV2I2QKwm7stoRQkOJ.jpg!730x0.jpg">
-                        <img data-origin-width="720" data-origin-height="691" class="js-richtext-img-lazy js-view-image-item" src="https://img.yzcdn.cn/upload_files/2017/05/15/Fs5rqsKzMe7qIHhuQAqyM1lcjmfB.jpg?imageView2/2/w/730/h/0/q/75/format/webp"
-                          data-src="https://img.yzcdn.cn/upload_files/2017/05/15/Fs5rqsKzMe7qIHhuQAqyM1lcjmfB.jpg!730x0.jpg">
-                        <img data-origin-width="720" data-origin-height="531" class="js-richtext-img-lazy js-view-image-item" src="https://img.yzcdn.cn/upload_files/2017/05/15/Foor6_Ipc-Lo9eOX_H_a8g4kWPRW.jpg?imageView2/2/w/730/h/0/q/75/format/webp"
-                          data-src="https://img.yzcdn.cn/upload_files/2017/05/15/Foor6_Ipc-Lo9eOX_H_a8g4kWPRW.jpg!730x0.jpg">
-                        <img data-origin-width="720" data-origin-height="932" class="js-richtext-img-lazy js-view-image-item" src="https://img.yzcdn.cn/upload_files/2017/05/15/FuuNBFbA_vMYmI6FFbNOemmDX9bd.jpg?imageView2/2/w/730/h/0/q/75/format/webp"
-                          data-src="https://img.yzcdn.cn/upload_files/2017/05/15/FuuNBFbA_vMYmI6FFbNOemmDX9bd.jpg!730x0.jpg">
-                        <img data-origin-width="720" data-origin-height="707" class="js-richtext-img-lazy js-view-image-item" src="https://img.yzcdn.cn/upload_files/2017/05/15/FotgIfOUlMtvhtH0dhRLlmpKJLv7.jpg?imageView2/2/w/730/h/0/q/75/format/webp"
-                          data-src="https://img.yzcdn.cn/upload_files/2017/05/15/FotgIfOUlMtvhtH0dhRLlmpKJLv7.jpg!730x0.jpg">
-                      </p>
-                    </div>
-                    <div class="price-intro">
-                      <h4>划线价格说明
-                        <i class="icon-arrow"></i>
-                      </h4>
-                      <p>划线价格：划线的价格可能是商品的专柜价、吊牌价、正品零售价、指导价、曾经展示过的销售价等，仅供您参考。</p>
-                      <p>未划线价格：未划线的价格是商品的销售标价，具体的成交价格可能因会员使用优惠券、积分等发生变化，最终以订单结算价格为准。 </p>
-                      <p>*此说明仅当出现价格比较时有效。若这件商品针对划线价格进行了特殊说明，以特殊说明为准。</p>
-                    </div>
-                  </div>
+                <!-- 商品详情 -->
+                <div class="js-part js-goods-detail goods-tabber-c" data-type="goods"
+                  v-html="details.description"
+                  v-show="tabIndex === 0"
+                >
+                  
                 </div>
               </div>
             </div>
