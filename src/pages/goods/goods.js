@@ -19,11 +19,17 @@ let detailTab = ['商品详情','本店成交']
 new Vue({
   el: '#app',
   data: {
+    id,
     details: null,
     detailTab,
     tabIndex: 0,
     dealLists: null,
-    bannerList: null
+    bannerList: null,
+    skuType: 1,
+    showSku: false,
+    skuNum: 1,
+    isAddCart: false,
+    showMsg: false
   },
   created() {
     this.getDetails()
@@ -52,6 +58,45 @@ new Vue({
       axios.post(url.deal, {id}).then( res => {
         this.dealLists = res.data.data.lists
       })
+    },
+    chooseSku(type) {
+      this.skuType = type
+      this.showSku = true
+    },
+    changeSkuNum(num) {
+      if(num < 0 && this.skuNum === 1) {
+        return
+      } else {
+        this.skuNum += num
+      }
+    },
+    addCart() {
+      axios.post(url.addCart, {
+        id, 
+        number: this.skuNum
+      }).then( res => {
+        if(res.data.status === 200) {
+          this.showSku = false
+          this.isAddCart = true
+          this.showMsg = true
+
+          setTimeout(() => {
+            this.showMsg = false
+          }, 2000);
+        }
+      })
+    }
+  },
+  watch: {
+    showSku(val, oldVal) {
+      document.body.style.overflow = val ? 'hidden' : 'auto'
+      document.querySelector('html').style.overflow = val ? 'hidden' : 'auto'
+      document.body.style.height = val ? '100%' : 'auto'
+      document.querySelector('html').style.height = val ? '100%' : 'auto'
+
+
+
+
     }
   },
   components: {
