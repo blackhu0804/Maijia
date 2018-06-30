@@ -70,7 +70,7 @@
                           <!-- 显示状态 -->
                           <div class="num">
                             ×
-                            <span class="num-txt">2</span>
+                            <span class="num-txt">{{good.number}}</span>
 
                           </div>
                           <!-- 编辑状态 -->
@@ -86,7 +86,7 @@
                           </div>
                           <div class="price c-orange">
                             ¥
-                            <span>189.00 </span>
+                            <span>{{good.price | money}} </span>
                           </div>
                         </div>
                         <div class="error-box"></div>
@@ -156,13 +156,13 @@
               <!-- 显示状态 -->
               <div class="total-price">
                 合计：¥
-                <span class="js-total-price" style="color: rgb(255, 102, 0);">684.99</span>
+                <span class="js-total-price" style="color: rgb(255, 102, 0);">{{total | money}}</span>
                 <p class="c-gray-dark">不含运费</p>
               </div>
-              <button href="javascript:;" disabled
+              <button href="javascript:;" :disabled="!selectLists.length"
                 class="js-go-pay btn btn-orange-dark font-size-14" 
                 >
-                结算 (3)
+                结算
               </button>
               <!-- 编辑状态 -->
               <button href="javascript:;" disabled="disabled" class="j-delete-goods btn font-size-14 btn-red"
