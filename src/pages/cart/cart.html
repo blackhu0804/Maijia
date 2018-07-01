@@ -32,7 +32,8 @@
             <div class="block block-order block-cart" v-for="(shop, shopIndex) in lists">
               <div class="header">
                 <div class="select-group js-select-group" @click="selectShop(shop)">
-                  <span class="check" :class="{checked: shop.checked}"></span>
+                  <span class="check" :class="{checked: shop.checked}" v-show="!editingShop"></span>
+                  <span class="check" :class="{checked: shop.removeChecked}" v-show="editingShop"></span>
                 </div>
                 <a class="shop-title">
                   <i class="custom-store-img">店铺：</i>
@@ -53,7 +54,7 @@
                     >
                     <div>
                       <div class="check-container" @click="selectGood(shop, good)">
-                        <span class="check" :class="{checked:good.checked}"></span>
+                        <span class="check" :class="{checked:editingShop ? good.removeChecked : good.checked}"></span>
                       </div>
                       <div class="name-card clearfix">
                         <a :href="'goods.html?id='+good.id" class="thumb js-goods-link">
@@ -152,7 +153,7 @@
             </div>
             <div class="bottom-cart clear-fix">
               <div class="select-all">
-                <span class="check" :class="{checked: allSelected}" @click="selectAll()"></span> 全选
+                <span class="check" :class="{checked: editingShop ? allRemoveSelected : allSelected}" @click="selectAll()"></span> 全选
               </div>
               <!-- 显示状态 -->
               <div class="total-price" v-show="!editingShop">
@@ -167,7 +168,7 @@
                 结算
               </button>
               <!-- 编辑状态 -->
-              <button href="javascript:;" disabled="disabled" class="j-delete-goods btn font-size-14 btn-red"
+              <button href="javascript:;" :disabled="!removeLists.length" class="j-delete-goods btn font-size-14 btn-red"
                  v-show="editingShop">
                  删除
               </button>
