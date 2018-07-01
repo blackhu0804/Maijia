@@ -14,7 +14,9 @@ new Vue({
         lists: null,
         total: 0,
         editingShop: null,
-        editingShopIndex: -1
+        editingShopIndex: -1,
+        removePopup: false,
+        removeData: null
     },
     computed: {
         allSelected: {
@@ -132,6 +134,56 @@ new Vue({
 
             this.editingShop = shop.editing ? shop : null
             this.editingShopIndex = shop.editing ? shopIndex : -1
+        },
+        reduce(good) {
+            if(good.number === 1) {
+                return
+            } 
+            axios.post(url.cartReduce, {
+                id: good.id,
+                number: 1
+            }).then( res => {
+                good.number -= 1
+            })
+        },
+        add(good) {
+            axios.post(url.addCart, {
+                id: good.id,
+                number: 1
+            }).then( res => {
+                good.number += 1
+            })
+        },
+        remove(shop, shopIndex, good, goodIndex) {
+            this.removePopup = true
+            this.removeData = {
+                shop,
+                shopIndex,
+                good,
+                goodIndex
+            }
+        },
+        removeConfrim() {
+            let { shop, shopIndex, good, goodIndex} = this.removeData
+            axios.post(url.cartRemove, {
+                id: good.id
+            }).then( res => {
+                shop.goodsList.splice( goodIndex, 1)
+                if(!shop.goodsList.length) {
+                    this.lists.splice( shopIndex, 1)
+                    this.removeShop()
+                }
+                this.removePopup = false                
+            })
+        },
+        removeShop() {
+            // 当店铺商品全部被删除后返回可编辑状态
+            this.editingShop = null
+            this.editingShopIndex = -1
+            this.lists.forEach( shop => {
+                shop.editing = false
+                shop.editingMsg = '编辑'
+            })
         }
     },
     mixins: [mixin]

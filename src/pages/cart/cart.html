@@ -79,11 +79,11 @@
                           <div class="num" v-show="shop.editing">
 
                             <div class="quantity">
-                              <button type="button" class="minus disabled"></button>
+                              <button type="button" class="minus" :class="{disabled: good.number === 1}"></button>
                               <input type="text" pattern="[0-9]*" class="txt" v-model="good.number">
                               <button type="button" class="plus "></button>
-                              <div class="response-area response-area-minus"></div>
-                              <div class="response-area response-area-plus"></div>
+                              <div class="response-area response-area-minus" @click="reduce(good)"></div>
+                              <div class="response-area response-area-plus" @click="add(good)"></div>
                             </div>
                           </div>
                           <div class="price c-orange">
@@ -93,7 +93,7 @@
                         </div>
                         <div class="error-box"></div>
                       </div>
-                      <div class="delete-btn">
+                      <div class="delete-btn" @click="remove(shop, shopIndex, good, goodIndex)">
                         <span>删除</span>
                       </div>
                     </div>
@@ -177,14 +177,33 @@
         </div>
       </div>
     </div>
+
+    <div v-show="removePopup" class="van-modal" style="z-index: 2001;position: fixed;width: 100%;height: 100%;top: 0;left: 0;background-color: rgba(0,0,0,.7);"></div>
+    <div v-show="removePopup" class="van-dialog" style="z-index: 2002;position: fixed;top: 50%;left: 50%;width: 85%;font-size: 16px;overflow: hidden;-webkit-transition: .2s;
+    -moz-transition: .2s;transition: .2s;border-radius: 4px;background-color: #fff;-webkit-transform: translate3d(-50%,-50%,0);
+    -moz-transform: translate3d(-50%,-50%,0);transform: translate3d(-50%,-50%,0);">
+      <!---->
+      <div class="van-hairline van-dialog__content">
+        <div class="van-dialog__message" style="line-height: 1.5;padding: 15px 20px;">确定要删除该商品么?</div>
+      </div>
+      <div class="van-dialog__footer van-dialog__footer--buttons" style="display: flex;padding: 15px 20px;justify-content: space-around;border-top: 1px solid #eee;">
+        <span class="van-button__text" style="color: #333;">
+          取消
+        </span>
+        <span style="border: 1px solid #eee;"></span>
+        <span @click="removeConfrim" class="van-button__text" style="color: #00c000;">
+          确认
+        </span>
+      </div>
+    </div>
   </div>
-  <div class="footer" style="min-height: 86px;">
+  <!-- <div class="footer" style="min-height: 86px;">
     <div class="copyright">
       <div class="ft-copyright " style="background-image: url(https://img.yzcdn.cn/upload_files/2016/11/15/147918630760182374.png);">
         <a class="yz-logo" href="https://www.youzan.com/?from_source=support_logo">有赞提供技术支持</a>
       </div>
     </div>
-  </div>
+  </div> -->
 </body>
 
 </html>
