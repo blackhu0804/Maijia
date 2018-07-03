@@ -7,6 +7,7 @@ import mixin from 'js/mixin.js'
 import axios from 'axios'
 import url from 'js/api.js'
 import Volecity from "velocity-animate";
+import Cart from "js/cartService.js";
 
 new Vue({
     el: '.container',
@@ -88,8 +89,23 @@ new Vue({
     },
     methods: {
         getList() {
-            axios.post(url.cartLists).then( res => {
-                let lists = res.data.cartList 
+            // axios.post(url.cartLists).then( res => {
+            //     let lists = res.data.cartList 
+            //     lists.forEach( shop => {
+            //         shop.checked = true
+            //         shop.removeChecked = false
+            //         shop.editing = false
+            //         shop.editingMsg = '编辑'
+            //         shop.goodsList.forEach(good => {
+            //             good.checked = true
+            //             good.removeChecked = false
+            //         })
+            //     })
+            //     this.lists = lists
+                
+            // })
+            Cart.getList().then( res => {
+                let lists = res.data.cartList
                 lists.forEach( shop => {
                     shop.checked = true
                     shop.removeChecked = false
@@ -101,7 +117,6 @@ new Vue({
                     })
                 })
                 this.lists = lists
-                
             })
         },
         selectGood(shop, good) {
@@ -139,19 +154,26 @@ new Vue({
             if(good.number === 1) {
                 return
             } 
-            axios.post(url.cartReduce, {
-                id: good.id,
-                number: 1
-            }).then( res => {
+            // axios.post(url.cartReduce, {
+            //     id: good.id,
+            //     number: 1
+            // }).then( res => {
+            //     good.number -= 1
+            // })
+            Cart.reduce( good.id ).then( res=> {
                 good.number -= 1
             })
         },
         add(good) {
-            axios.post(url.addCart, {
-                id: good.id,
-                number: 1
-            }).then( res => {
-                good.number += 1
+            // axios.post(url.addCart, {
+            //     id: good.id,
+            //     number: 1
+            // }).then( res => {
+            //     good.number += 1
+            // })
+
+            Cart.add(good.id).then( res => {
+                good.number+=1
             })
         },
         remove(shop, shopIndex, good, goodIndex) {
@@ -171,9 +193,17 @@ new Vue({
         removeConfrim() {
             if (this.removeMsg === '确定要删除该商品吗？') {
                 let { shop, shopIndex, good, goodIndex } = this.removeData
-                axios.post(url.cartRemove, {
-                    id: good.id
-                }).then(res => {
+                // axios.post(url.cartRemove, {
+                //     id: good.id
+                // }).then(res => {
+                //     shop.goodsList.splice(goodIndex, 1)
+                //     if (!shop.goodsList.length) {
+                //         this.lists.splice(shopIndex, 1)
+                //         this.removeShop()
+                //     }
+                //     this.removePopup = false
+                // })
+                Cart.remove(good.id).then( res => {
                     shop.goodsList.splice(goodIndex, 1)
                     if (!shop.goodsList.length) {
                         this.lists.splice(shopIndex, 1)
@@ -186,9 +216,27 @@ new Vue({
                 this.removeLists.forEach( good => {
                     ids.push(good.id)
                 })
-                axios.post(url.cartMremove, {
-                    ids
-                }).then( res => {
+                // axios.post(url.cartMremove, {
+                //     ids
+                // }).then( res => {
+                //     let arr = []
+                //     this.editingShop.goodsList.forEach( good => {
+                //         let index = this.removeLists.findIndex( item => {
+                //             return item.id == good.id
+                //         })
+                //         if(index === -1) {
+                //             arr.push(good)
+                //         }
+                //     })
+                //     if(arr.length) {
+                //         this.editingShop.goodsList = arr
+                //     } else {
+                //         this.lists.splice(this.editingShopIndex, 1)
+                //         this.removeShop()
+                //     }
+                //     this.removePopup = false 
+                // })
+                Cart.removeLists(ids).then( res => {
                     let arr = []
                     this.editingShop.goodsList.forEach( good => {
                         let index = this.removeLists.findIndex( item => {
@@ -204,7 +252,7 @@ new Vue({
                         this.lists.splice(this.editingShopIndex, 1)
                         this.removeShop()
                     }
-                    this.removePopup = false 
+                    this.removePopup = false
                 })
             }
         },
