@@ -1,3 +1,4 @@
+import './member.css'
 //1.使用Vue-router
 import Vue from "vue";
 import Router from 'vue-router'
@@ -19,9 +20,11 @@ let routes = [{
         redirect: 'all'
     },{
         path: 'all',
+        name: 'all',
         component: all,
     },{
         path: 'form',
+        name: 'form',
         component: form,
     }]
 }]

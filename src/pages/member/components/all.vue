@@ -1,19 +1,22 @@
 <template>
-    <div class="container " style="min-height: 597px;">
+    <div v-if="lists && lists.length" class="container " style="min-height: 597px;" >
         <div class="block-list address-list section section-first js-no-webview-block">
-            <a @click="toEdit" class="block-item js-address-item address-item " >
-                <div class="address-title">tony 13112345678</div>
-                <p>广东省珠海市香洲区南方软件园</p>
-                <a class="address-edit">修改</a>
-            </a>
-            <a class="block-item js-address-item address-item address-item-default" >
-                <div class="address-title">tony 13112345678</div>
-                <p>北京市北京市东城区天安门</p>
+            <a 
+            @click="toEdit(list)" 
+            v-for="list in lists"
+            :key="list.id"
+            :class="{'address-item-default':list.isDefault}"
+            class="block-item js-address-item address-item " >
+                <div class="address-title">{{list.name}} {{list.tel}}</div>
+                <p>{{list.provinceName}} {{list.cityName}}市{{list.districtName}}{{list.address}}</p>
                 <a class="address-edit">修改</a>
             </a>
         </div>
+        <div v-if="lists && !lists.length">
+            暂无收货地址，请添加！
+        </div>
         <div class="block stick-bottom-row center">
-            <router-link to="/address/form" class="btn btn-blue js-no-webview-block js-add-address-btn">
+            <router-link :to="{name: 'form', query: {type: 'add'}}" class="btn btn-blue js-no-webview-block js-add-address-btn">
                 新增地址
             </router-link>
         </div>
@@ -21,10 +24,26 @@
 </template>
 
 <script>
+import Address from "js/addressService.js";
+
 export default {
+    data() {
+        return {
+            lists: null
+        }
+    },
+    created() {
+        Address.list().then( res => {
+            this.lists = res.data.lists
+        })
+    },
     methods: {
-        toEdit() {
-            this.$router.push({path: '/address/form'})
+        toEdit(list) {
+            // this.$router.push({path: '/address/form'})
+            this.$router.push({name: 'form', query: {
+                type: 'edit',
+                instance: list
+            }})
         }
     }
 }
