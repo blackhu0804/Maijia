@@ -1184,3 +1184,9 @@ only screen and (min-device-pixel-ratio:1.5) {
     opacity: 1
   }
 }
+.swiper-pagination {
+  text-align: center;
+}
+.swiper-pagination-bullets {
+  text-align: center;
+}
