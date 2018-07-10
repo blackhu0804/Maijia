@@ -1,4 +1,5 @@
 import Address from 'js/addressService.js'
+import { mapState } from 'vuex'
 
 export default {
     data() {
@@ -17,6 +18,17 @@ export default {
             districtList: null
         }
     },
+    // computed: {
+    //     lists() {
+    //         return this.$store.state.lists
+    //     }
+    // },
+    // computed: mapState['lists'],
+    computed: {
+        ...mapState({
+            lists: state => state.lists
+        })
+    },
     created() {
         if (this.type === 'edit') {
             let address = this.instance
@@ -28,6 +40,13 @@ export default {
         }
     },
     watch: {
+        lists: {
+            // 监听list变化
+            handler() {
+                this.$router.go(-1)
+            },
+            deep: true
+        },
         provinceValue(val) {
             if(val === -1) return 
             let list = this.addressData.list
@@ -62,29 +81,33 @@ export default {
             let {name, tel , provinceValue, cityValue, districtValue, address} = this
             let data = { name, tel, provinceValue, cityValue, districtValue, address }
             if(this.type === 'add') {
-                Address.add(data).then( res => {
-                    this.$router.go(-1)
-                })
+                // Address.add(data).then( res => {
+                //     this.$router.go(-1)
+                // })
+                this.$store.dispatch('addAction', data)
             }
 
             if(this.type === 'edit') {
                 data.id = this.id
-                Address.update(data).then( res => {
-                    this.$router.go(-1)                    
-                })
+                // Address.update(data).then( res => {
+                //     this.$router.go(-1)                    
+                // })
+                this.$store.dispatch('updateAction', data)
             }
         },
         remove() {
             if (window.confirm('确认删除？')) {
-                Address.remove(this.id).then( res => {
-                    this.$router.go(-1)
-                })
+                // Address.remove(this.id).then( res => {
+                //     this.$router.go(-1)
+                // })
+                this.$store.dispatch('removeAction', this.id)
             }
         },
         setDefault() {
-            Address.setDefault(this.id).then(res => {
-                this.$router.go(-1)
-            })
+            // Address.setDefault(this.id).then(res => {
+            //     this.$router.go(-1)
+            // })
+            this.$store.dispatch('setDefaultAction', this.id)
         }
     }
 }
